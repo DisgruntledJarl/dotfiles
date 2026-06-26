@@ -22,5 +22,4 @@ dotadd() {
 }
 
 # Open Files with Zed which is installed in native Windows
-alias zed="/mnt/c/Users/$USER/AppData/Local/Programs/Zed/Zed.exe"
-
+alias zed="zed.exe --wsl $USER@Ubuntu"
