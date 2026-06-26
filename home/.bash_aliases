@@ -20,3 +20,7 @@ dotadd() {
   echo "  git -C $DOTFILES_DIR commit -m 'dotfiles: add $filename'"
   echo "  git -C $DOTFILES_DIR push"
 }
+
+# Open Files with Zed which is installed in native Windows
+alias zed="/mnt/c/Users/$USER/AppData/Local/Programs/Zed/Zed.exe"
+
