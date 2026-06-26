@@ -68,8 +68,18 @@ git config --global push.autoSetupRemote true
 # === Symlink dotfiles ===
 echo ""
 echo "=== Symlinking dotfiles ==="
-ln -sf "$DOTFILES_DIR/.bashrc" "$HOME/.bashrc"
-ln -sf "$DOTFILES_DIR/.profile" "$HOME/.profile"
+for file in "$DOTFILES_DIR/home"/.[^.]*; do
+  filename=$(basename "$file")
+  target="$HOME/$filename"
+
+  if [ -e "$target" ] && [ ! -L "$target" ]; then
+    echo "Backing up existing $filename to $filename.bak"
+    mv "$target" "$target.bak"
+  fi
+
+  ln -sf "$file" "$target"
+  echo "Linked $filename"
+done
 
 # === WSL config ===
 echo ""
