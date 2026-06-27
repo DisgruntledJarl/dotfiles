@@ -93,6 +93,18 @@ echo "=== Installing packages ==="
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y $(cat "$DOTFILES_DIR/packages/apt.txt" | tr '\n' ' ')
 
+# === Install Claude Code ===
+echo ""
+echo "=== Installing Claude Code ==="
+if command -v claude &> /dev/null; then
+  echo "Claude Code already installed, skipping."
+else
+  curl -fsSL https://claude.ai/install.sh | bash
+  if ! grep -q 'HOME/.local/bin' "$HOME/.bashrc"; then
+    echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.bashrc"
+  fi
+fi
+
 # === Done ===
 echo ""
 source "$HOME/.bashrc"
