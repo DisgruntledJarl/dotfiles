@@ -23,3 +23,12 @@ dotadd() {
 
 # Open Files with Zed which is installed in native Windows
 alias zed="zed.exe --wsl $USER@Ubuntu"
+
+# Clone git repos with just the name of the repository
+gcl() {
+    if [ -z "$1" ]; then
+        echo "Usage: gcl repo-name"
+        return 1
+    fi
+    git clone "git@github.com:$(git config --global github.user)/$1.git"
+}

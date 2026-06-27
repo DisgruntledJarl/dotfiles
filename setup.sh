@@ -50,7 +50,7 @@ DOTFILES_DIR="$HOME/dotfiles"
 if [ ! -d "$DOTFILES_DIR" ]; then
   echo ""
   echo "=== Cloning dotfiles ==="
-  git clone git@github.com:disgruntledjarl/dotfiles.git "$DOTFILES_DIR"
+  git clone "git@github.com:$GIT_USERNAME/dotfiles.git" "$DOTFILES_DIR"
 else
   echo "Dotfiles repo already exists, skipping clone."
 fi
@@ -60,6 +60,7 @@ echo ""
 echo "=== Configuring git ==="
 git config --global user.email "$EMAIL"
 git config --global user.name "$GIT_USERNAME"
+git config --global github.user "$GIT_USERNAME"
 git config --global core.editor "code --wait"
 git config --global core.autocrlf input
 git config --global pull.rebase false
