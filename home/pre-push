@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-current_branch=$(git symbolic-ref --short HEAD 2>/dev/null)
-if [ "$current_branch" = "architecture" ]; then
-  echo "[pre-push] Pushing the 'architecture' branch is not allowed. Merge changes into main first."
-  exit 1
-fi

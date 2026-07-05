@@ -5,20 +5,33 @@ dotadd() {
     return 1
   fi
 
-  local file
-  file=$(realpath "$1")
-  local filename
-  filename=$(basename "$file")
+  local target
+  target=$(realpath "$1")
+  local targetname
+  targetname=$(basename "$target")
   local DOTFILES_DIR="$HOME/dotfiles"
-  local dest="$DOTFILES_DIR/home/$filename"
+  local dest="$DOTFILES_DIR/home/$targetname"
 
-  cp "$file" "$dest"
-  ln -sf "$dest" "$file"
-  git -C "$DOTFILES_DIR" add "home/$filename"
+    # Copy recursively if it's a directory, otherwise copy normally
+    if [ -d "$target" ]; then
+      # Remove existing dest folder if it exists to avoid nested copies
+      rm -rf "$dest"
+      cp -r "$target" "$dest"
+    else
+      cp "$target" "$dest"
+    fi
 
-  echo "Staged $filename — commit and push when ready:"
-  echo "  git -C $DOTFILES_DIR commit -m 'dotfiles: add $filename'"
-  echo "  git -C $DOTFILES_DIR push"
+    # Re-create the symlink (works for both files and directories)
+    # If it's a directory, we must remove the original to replace it with a symlink
+    rm -rf "$target"
+    ln -sf "$dest" "$target"
+
+    # Stage in Git
+    git -C "$DOTFILES_DIR" add "home/$target_name"
+
+    echo "Staged $target_name — commit and push when ready:"
+    echo "  git -C $DOTFILES_DIR commit -m 'dotfiles: add $target_name'"
+    echo "  git -C $DOTFILES_DIR push"
 }
 
 # Open Files with Zed which is installed in native Windows
