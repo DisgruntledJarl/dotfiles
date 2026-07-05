@@ -30,5 +30,5 @@ gcl() {
         echo "Usage: gcl repo-name"
         return 1
     fi
-    git clone "git@github.com:$(git config --global github.user)/$1.git"
+    git clone "git@github.com:$(git config --global user.name)/$1.git"
 }
