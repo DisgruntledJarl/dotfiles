@@ -1,0 +1,131 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+    "agent": {
+        "tool_permissions": {
+            "tools": {
+                "terminal": {
+                    "default": "allow"
+                }
+            }
+        },
+        "profiles": {},
+        "default_profile": "ask",
+        "default_model": {
+            "provider": "openrouter",
+            "model": "deepseek/deepseek-v4-flash",
+            "enable_thinking": false
+        },
+        "sidebar_side": "right",
+        "dock": "right",
+        "favorite_models": [],
+        "model_parameters": []
+    },
+
+    "base_keymap": "VSCode",
+
+    "buffer_font_size": 16,
+
+    "cli_default_open_behavior": "new_window",
+
+    "collaboration_panel": {
+        "button": false
+    },
+
+    "debugger": {
+        "button": false
+    },
+
+    "git": {
+        "inline_blame": {
+            "enabled": false
+        }
+    },
+
+    "git_panel": {
+        "dock": "left"
+    },
+
+    "jupyter": {
+        "enabled": false
+    },
+
+    "language_models": {
+        "openai_compatible": {
+            "openrouter": {
+                "api_url": "https://openrouter.ai/api/v1",
+                "available_models": [
+                    {
+                        "name": "deepseek/deepseek-v4-flash",
+                        "display_name": "DeepSeek V4 Flash",
+                        "max_tokens": 1048576
+                    },
+                    {
+                        "name": "deepseek/deepseek-v4-pro",
+                        "display_name": "DeepSeek V4 Pro",
+                        "max_tokens": 1048576
+                    }
+                ]
+            }
+        }
+    },
+
+    "outline_panel": {
+        "dock": "left",
+        "expand_outlines_with_depth": 0
+    },
+
+    "project_panel": {
+        "dock": "left",
+        "default_width": 240
+    },
+
+    "proxy": "",
+
+    "status_bar": {
+        "cursor_position_button": false,
+        "active_language_button": false
+    },
+
+    "session": {
+        "trust_all_worktrees": true
+    },
+
+    "terminal": {
+        "font_family": "MesloLGM Nerd Font Mono",
+        "cursor_shape": "bar",
+        "shell": {
+            "program": "wsl.exe"
+        }
+    },
+
+    "theme": {
+        "mode": "system",
+        "light": "One Light",
+        "dark": "BloodNeon"
+    },
+
+    "title_bar": {
+        "show_user_menu": false
+    },
+
+    "ui_font_size": 16,
+
+    "wsl_connections": [
+        {
+            "distro_name": "Ubuntu",
+            "user": null,
+            "projects": [
+                {
+                    "paths": ["/home/jarl"]
+                }
+            ]
+        }
+    ]
+}
