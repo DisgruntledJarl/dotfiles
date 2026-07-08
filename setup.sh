@@ -13,19 +13,26 @@ chmod 700 "$HOME/.ssh"
 
 if [ ! -f "$HOME/.ssh/github" ]; then
   ssh-keygen -t ed25519 -C "$EMAIL" -f "$HOME/.ssh/github" -N ""
+else
+  echo "SSH key already exists, skipping generation."
+fi
 
-  cat > "$HOME/.ssh/config" << EOF
+cat > "$HOME/.ssh/config" << EOF
 Host github.com
   HostName github.com
   User git
   IdentityFile ~/.ssh/github
   AddKeysToAgent yes
 EOF
-  chmod 600 "$HOME/.ssh/config"
+chmod 600 "$HOME/.ssh/config"
 
-  eval "$(ssh-agent -s)"
-  ssh-add "$HOME/.ssh/github"
+eval "$(ssh-agent -s)"
+ssh-add "$HOME/.ssh/github"
 
+# === Verify GitHub connection, prompt to register key if needed ===
+echo ""
+echo "=== Verifying GitHub SSH connection ==="
+until ssh -T git@github.com 2>&1 | grep -q "successfully authenticated"; do
   echo ""
   echo "Add this public key to GitHub before continuing:"
   echo "https://github.com/settings/ssh/new"
@@ -33,16 +40,8 @@ EOF
   cat "$HOME/.ssh/github.pub"
   echo ""
   read -p "Press Enter once you've added the key..."
-else
-  echo "SSH key already exists, skipping generation."
-  eval "$(ssh-agent -s)"
-  ssh-add "$HOME/.ssh/github"
-fi
-
-# === Verify GitHub connection ===
-echo ""
-echo "=== Verifying GitHub SSH connection ==="
-ssh -T git@github.com 2>&1 || true
+done
+echo "GitHub SSH connection verified."
 
 # === Clone dotfiles ===
 DOTFILES_DIR="$HOME/dotfiles"
