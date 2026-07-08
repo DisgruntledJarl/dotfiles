@@ -98,7 +98,7 @@
     },
 
     "terminal": {
-        "font_family": "MesloLGM Nerd Font Mono",
+        "font_family": ".SystemUIFont",
         "cursor_shape": "bar",
         "shell": {
             "program": "wsl.exe"

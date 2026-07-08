@@ -61,7 +61,7 @@ echo "=== Configuring git ==="
 git config --global user.email "$EMAIL"
 git config --global user.name "$GIT_USERNAME"
 git config --global github.user "$GIT_USERNAME"
-git config --global core.editor "code --wait"
+git config --global core.editor "zed --wait"
 git config --global core.autocrlf input
 git config --global pull.rebase false
 git config --global push.autoSetupRemote true
