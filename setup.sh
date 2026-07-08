@@ -44,12 +44,13 @@ done
 echo "GitHub SSH connection verified."
 
 # === Clone dotfiles ===
-DOTFILES_DIR="$HOME/dotfiles"
+REPO_DIR="$HOME/dotfiles"
+DOTFILES_DIR="$REPO_DIR/dotfiles"
 
-if [ ! -d "$DOTFILES_DIR" ]; then
+if [ ! -d "$REPO_DIR" ]; then
   echo ""
   echo "=== Cloning dotfiles ==="
-  git clone "git@github.com:$GIT_USERNAME/dotfiles.git" "$DOTFILES_DIR"
+  git clone "git@github.com:$GIT_USERNAME/dotfiles.git" "$REPO_DIR"
 else
   echo "Dotfiles repo already exists, skipping clone."
 fi
@@ -68,29 +69,39 @@ git config --global push.autoSetupRemote true
 # === Symlink dotfiles ===
 echo ""
 echo "=== Symlinking dotfiles ==="
-for file in "$DOTFILES_DIR/home"/.[^.]*; do
-  filename=$(basename "$file")
-  target="$HOME/$filename"
+
+declare -A LINKS=(
+  ["$DOTFILES_DIR/bash/.bashrc"]="$HOME/.bashrc"
+  ["$DOTFILES_DIR/bash/.bash_aliases"]="$HOME/.bash_aliases"
+  ["$DOTFILES_DIR/bash/.profile"]="$HOME/.profile"
+  ["$DOTFILES_DIR/git"]="$HOME/.config/git"
+  ["$DOTFILES_DIR/claude/settings.json"]="$HOME/.claude/settings.json"
+  ["$DOTFILES_DIR/claude/statusline.sh"]="$HOME/.claude/statusline.sh"
+)
+
+for source in "${!LINKS[@]}"; do
+  target="${LINKS[$source]}"
+  mkdir -p "$(dirname "$target")"
 
   if [ -e "$target" ] && [ ! -L "$target" ]; then
-    echo "Backing up existing $filename to $filename.bak"
+    echo "Backing up existing $target to $target.bak"
     mv "$target" "$target.bak"
   fi
 
-  ln -sf "$file" "$target"
-  echo "Linked $filename"
+  ln -sf "$source" "$target"
+  echo "Linked $target -> $source"
 done
 
 # === WSL config ===
 echo ""
 echo "=== Writing WSL config ==="
-sudo ln -sf "$DOTFILES_DIR/wsl.conf" "/etc/wsl.conf"
+sudo ln -sf "$DOTFILES_DIR/wsl/wsl.conf" "/etc/wsl.conf"
 
 # === Install packages ===
 echo ""
 echo "=== Installing packages ==="
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y $(cat "$DOTFILES_DIR/packages/apt.txt" | tr '\n' ' ')
+sudo apt install -y $(cat "$REPO_DIR/packages/apt.txt" | tr '\n' ' ')
 
 # === Install Claude Code ===
 echo ""
