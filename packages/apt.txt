@@ -5,6 +5,7 @@ dash
 diffutils
 dpkg
 findutils
+git
 gnu-coreutils
 grep
 gzip
@@ -18,3 +19,6 @@ tar
 ubuntu-minimal
 ubuntu-wsl
 util-linux
+zsh
+zsh-autosuggestions
+zsh-syntax-highlighting
