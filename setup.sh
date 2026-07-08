@@ -32,7 +32,7 @@ ssh-add "$HOME/.ssh/github"
 # === Verify GitHub connection, prompt to register key if needed ===
 echo ""
 echo "=== Verifying GitHub SSH connection ==="
-until ssh -T git@github.com 2>&1 | grep -q "successfully authenticated"; do
+until { ssh -T git@github.com 2>&1 || true; } | grep -q "successfully authenticated"; do
   echo ""
   echo "Add this public key to GitHub before continuing:"
   echo "https://github.com/settings/ssh/new"
