@@ -71,13 +71,13 @@ echo ""
 echo "=== Symlinking dotfiles ==="
 
 declare -A LINKS=(
-  ["$DOTFILES_DIR/zed/settings.json"]="/mnt/c/Users/aravi/AppData/Roaming/Zed/settings.json"
   ["$DOTFILES_DIR/bash/.bashrc"]="$HOME/.bashrc"
   ["$DOTFILES_DIR/bash/.bash_aliases"]="$HOME/.bash_aliases"
   ["$DOTFILES_DIR/bash/.profile"]="$HOME/.profile"
   ["$DOTFILES_DIR/git"]="$HOME/.config/git"
   ["$DOTFILES_DIR/claude/settings.json"]="$HOME/.claude/settings.json"
   ["$DOTFILES_DIR/claude/statusline.sh"]="$HOME/.claude/statusline.sh"
+  ["$DOTFILES_DIR/zed/settings.json"]="$HOME/.config/zed/settings.json"
 )
 
 for source in "${!LINKS[@]}"; do
